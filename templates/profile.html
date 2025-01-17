@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ username }}'s Profile</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+        <h1>Welcome, {{ username }}!</h1>
+        <form method="GET" action="/profile" class="navbar-search">
+            <input type="text" name="search" placeholder="Search for a site..." autocomplete="off" value="{{ search_query }}">
+            <button type="submit" class="search-btn">
+                &#x1F50D;
+            </button>
+        </form>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+    <div class="container">
+        <h2>Your Websites</h2>
+        <form action="/add_site" method="POST">
+            <input type="text" name="site" placeholder="Site Name" autocomplete="off" required>
+            <button type="submit">Add Site</button>
+        </form>
+        <ul>
+            {% for site in sites %}
+                <li><a href="/site/{{ site }}">{{ site }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+
+        gsap.from("h1", { duration: 1, y: -50, opacity: 0 });
+        gsap.from("form", { duration: 1, x: -100, opacity: 0, delay: 0.5 });
+        gsap.from("ul li", {
+            duration: 0.5,
+            opacity: 0,
+            y: 30,
+            stagger: 0.2,
+            delay: 1,
+        });
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach(button => {
+            button.addEventListener("mouseenter", () => {
+                gsap.to(button, { scale: 1.1, duration: 0.3 });
+            });
+            button.addEventListener("mouseleave", () => {
+                gsap.to(button, { scale: 1, duration: 0.3 });
+            });
+        });
+    </script>
+</body>
+</html>

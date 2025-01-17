@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <body>
+        <div class="welcome-container">
+            <div class="welcome-card">
+                <h1>Welcome Back!</h1>
+                <p>Log in to access your account.</p>
+                <form action="/login" method="POST" class="login-form">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" autocomplete="off" required>
+                    
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="off" required>
+                    
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="/register" class="register-link">Register here</a>.</p>
+            </div>
+        </div>
+    </body>
+</body>
+</html>

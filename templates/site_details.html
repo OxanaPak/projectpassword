@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="navbar">
+        <h1>Accounts For {{ site_name }}!</h1>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+    <h2>Logins and Passwords</h2>
+    <form action="/add_login/{{ site_name }}" method="POST">
+        <input type="text" name="login" placeholder="Login" autocomplete="off" required>
+        <input type="text" name="password" placeholder="Password" autocomplete="off" required>
+        <button type="submit">Add Login</button>
+    </form>
+    <ul>
+        {% for entry in logins %}
+            <li>
+                {{ entry.login }}: 
+                <span id="password-{{ loop.index }}" data-password="{{ entry.password }}">********</span>
+                <div style="display: inline-flex; gap: 10px;">
+                    <button class="reveal-btn" onclick="togglePassword(this)">Reveal</button>
+                    <form action="/delete_login/{{ site_name }}/{{ entry.login }}" method="POST" style="margin: 0;">
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <a href="/profile">
+        <button>Back to Profile</button>
+    </a>
+    <script>
+        function togglePassword(button) {
+            const passwordSpan = button.closest("li").querySelector("span"); 
+            const password = passwordSpan.dataset.password; 
+    
+            if (button.textContent === "Reveal") {
+                passwordSpan.textContent = password; 
+                button.textContent = "Hide"; 
+            } else {
+                passwordSpan.textContent = "********"; 
+                button.textContent = "Reveal"; 
+            }
+        }
+    </script>
+    
+    
+</body>
+</html>
