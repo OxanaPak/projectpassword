@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from cryptography.fernet import Fernet
 import certifi
+import os
 
 app=Flask(__name__)
 
@@ -128,16 +129,10 @@ def add_login(site_name):
 
     return redirect(f"/site/{site_name}")
 
-for entry in passwords_collection.find():
-    print(f"Login: {entry.get('login')}, Encrypted Password: {entry['password']}")
-    try:
-        print(f"Decrypted Password: {decrypt_password(entry['password'])}")
-    except Exception as e:
-        print(f"Decryption Error: {e}")
-
 
 @app.route("/")
 def home():
     return render_template("index.html")
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=4000, debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=1000, debug=True)
